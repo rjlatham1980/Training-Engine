@@ -1,0 +1,30 @@
+  {
+    "name": "fitness-ai-engine",
+    "version": "0.1.0",
+    "description": "Training state machine for retention-first fitness app",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "files": ["dist"],
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "require": "./dist/index.js"
+      }
+    },
+    "scripts": {
+      "sim": "ts-node src/simulator/run.ts",
+      "build": "tsc -p tsconfig.json",
+      "clean": "rm -rf dist",
+      "prepublishOnly": "npm run clean && npm run build"
+    },
+    "keywords": ["fitness", "ai", "training", "state-machine"],
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+      "@types/node": "^20.10.0",
+      "ts-node": "^10.9.2",
+      "typescript": "^5.3.3"
+    }
+  }

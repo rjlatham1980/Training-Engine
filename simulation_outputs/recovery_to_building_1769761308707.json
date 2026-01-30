@@ -1,0 +1,2292 @@
+{
+  "scenario_name": "Recovery to Building",
+  "scenario_description": "User scales back, recovers, then gradually progresses",
+  "weeks": [
+    {
+      "week_number": 1,
+      "week_start_iso": "2026-01-01",
+      "phase": "onboarding",
+      "phase_week": 1,
+      "state": {
+        "fatigue_score": 10,
+        "energy_context": "normal",
+        "adherence_rate_2week": 0.16666666666666666,
+        "days_since_last_session": 0,
+        "pain_flags": [],
+        "has_active_injury": false
+      },
+      "program": {
+        "sessions_per_week": 2,
+        "intensity_tier": "light",
+        "session_duration_minutes": 20,
+        "volume_multiplier": 1
+      },
+      "sessions": [
+        {
+          "id": "2026-01-01-A",
+          "date": "2026-01-01T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 1,
+          "session_number": 1,
+          "session_type": "A",
+          "target_duration_minutes": 20,
+          "intensity_tier": "light",
+          "is_minimum_viable": false,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Bodyweight Squat",
+              "category": "strength",
+              "sets": 2,
+              "reps": "8-10",
+              "rest_seconds": 60
+            },
+            {
+              "name": "Glute Bridge",
+              "category": "strength",
+              "sets": 2,
+              "reps": "10-12",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Plank Hold",
+              "category": "strength",
+              "sets": 2,
+              "reps": "15-20 seconds",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Marching in Place",
+              "category": "cardio",
+              "sets": 2,
+              "reps": "2-3 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        },
+        {
+          "id": "2026-01-03-B",
+          "date": "2026-01-03T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 1,
+          "session_number": 2,
+          "session_type": "B",
+          "target_duration_minutes": 20,
+          "intensity_tier": "light",
+          "is_minimum_viable": false,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Knee Push-up",
+              "category": "strength",
+              "sets": 2,
+              "reps": "6-8",
+              "rest_seconds": 60
+            },
+            {
+              "name": "Wall Push-up",
+              "category": "strength",
+              "sets": 2,
+              "reps": "8-10",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Plank Hold",
+              "category": "strength",
+              "sets": 2,
+              "reps": "15-20 seconds",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Step-ups (low)",
+              "category": "cardio",
+              "sets": 2,
+              "reps": "2 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        }
+      ],
+      "minimum_viable_sessions": [
+        {
+          "id": "2026-01-01-A",
+          "date": "2026-01-01T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 1,
+          "session_number": 1,
+          "session_type": "A",
+          "target_duration_minutes": 12,
+          "intensity_tier": "light",
+          "is_minimum_viable": true,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Bodyweight Squat",
+              "category": "strength",
+              "sets": 1,
+              "reps": "8-10",
+              "rest_seconds": 60,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Glute Bridge",
+              "category": "strength",
+              "sets": 1,
+              "reps": "10-12",
+              "rest_seconds": 45,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Marching in Place",
+              "category": "cardio",
+              "sets": 1,
+              "reps": "2-3 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        },
+        {
+          "id": "2026-01-03-B",
+          "date": "2026-01-03T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 1,
+          "session_number": 2,
+          "session_type": "B",
+          "target_duration_minutes": 12,
+          "intensity_tier": "light",
+          "is_minimum_viable": true,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Knee Push-up",
+              "category": "strength",
+              "sets": 1,
+              "reps": "6-8",
+              "rest_seconds": 60,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Wall Push-up",
+              "category": "strength",
+              "sets": 1,
+              "reps": "8-10",
+              "rest_seconds": 45,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Step-ups (low)",
+              "category": "cardio",
+              "sets": 1,
+              "reps": "2 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        }
+      ],
+      "completion": {
+        "raw_sessions_completed": 1,
+        "planned_sessions_completed": 1,
+        "extra_sessions": 0,
+        "adherence_this_week": 0.5
+      },
+      "decision": {
+        "type": "scale_back",
+        "reason": "Fatigue score is high (≥7/10)",
+        "coaching_message": "Your body is asking for recovery. Let's scale back and rebuild.",
+        "coach_tone": "gentle"
+      },
+      "program_change": {
+        "occurred": true,
+        "description": "Scaled back: 3→2/week, light→light, 25→20min, 1.0x→1.0x volume",
+        "cause": "scale_back"
+      },
+      "safety_notes": [
+        "Fatigue 10.0/10 - recovery priority"
+      ],
+      "next_week_program": {
+        "sessions_per_week": 2,
+        "intensity_tier": "light",
+        "session_duration_minutes": 20,
+        "volume_multiplier": 1
+      }
+    },
+    {
+      "week_number": 2,
+      "week_start_iso": "2026-01-08",
+      "phase": "recovering",
+      "phase_week": 1,
+      "state": {
+        "fatigue_score": 8,
+        "energy_context": "normal",
+        "adherence_rate_2week": 0.75,
+        "days_since_last_session": 0,
+        "pain_flags": [],
+        "has_active_injury": false
+      },
+      "program": {
+        "sessions_per_week": 2,
+        "intensity_tier": "light",
+        "session_duration_minutes": 20,
+        "volume_multiplier": 1
+      },
+      "sessions": [
+        {
+          "id": "2026-01-08-A",
+          "date": "2026-01-08T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 1,
+          "session_number": 1,
+          "session_type": "A",
+          "target_duration_minutes": 20,
+          "intensity_tier": "light",
+          "is_minimum_viable": false,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Bodyweight Squat",
+              "category": "strength",
+              "sets": 2,
+              "reps": "8-10",
+              "rest_seconds": 60
+            },
+            {
+              "name": "Glute Bridge",
+              "category": "strength",
+              "sets": 2,
+              "reps": "10-12",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Plank Hold",
+              "category": "strength",
+              "sets": 2,
+              "reps": "15-20 seconds",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Marching in Place",
+              "category": "cardio",
+              "sets": 2,
+              "reps": "2-3 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        },
+        {
+          "id": "2026-01-10-B",
+          "date": "2026-01-10T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 1,
+          "session_number": 2,
+          "session_type": "B",
+          "target_duration_minutes": 20,
+          "intensity_tier": "light",
+          "is_minimum_viable": false,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Knee Push-up",
+              "category": "strength",
+              "sets": 2,
+              "reps": "6-8",
+              "rest_seconds": 60
+            },
+            {
+              "name": "Wall Push-up",
+              "category": "strength",
+              "sets": 2,
+              "reps": "8-10",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Plank Hold",
+              "category": "strength",
+              "sets": 2,
+              "reps": "15-20 seconds",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Step-ups (low)",
+              "category": "cardio",
+              "sets": 2,
+              "reps": "2 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        }
+      ],
+      "minimum_viable_sessions": [
+        {
+          "id": "2026-01-08-A",
+          "date": "2026-01-08T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 1,
+          "session_number": 1,
+          "session_type": "A",
+          "target_duration_minutes": 12,
+          "intensity_tier": "light",
+          "is_minimum_viable": true,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Bodyweight Squat",
+              "category": "strength",
+              "sets": 1,
+              "reps": "8-10",
+              "rest_seconds": 60,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Glute Bridge",
+              "category": "strength",
+              "sets": 1,
+              "reps": "10-12",
+              "rest_seconds": 45,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Marching in Place",
+              "category": "cardio",
+              "sets": 1,
+              "reps": "2-3 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        },
+        {
+          "id": "2026-01-10-B",
+          "date": "2026-01-10T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 1,
+          "session_number": 2,
+          "session_type": "B",
+          "target_duration_minutes": 12,
+          "intensity_tier": "light",
+          "is_minimum_viable": true,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Knee Push-up",
+              "category": "strength",
+              "sets": 1,
+              "reps": "6-8",
+              "rest_seconds": 60,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Wall Push-up",
+              "category": "strength",
+              "sets": 1,
+              "reps": "8-10",
+              "rest_seconds": 45,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Step-ups (low)",
+              "category": "cardio",
+              "sets": 1,
+              "reps": "2 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        }
+      ],
+      "completion": {
+        "raw_sessions_completed": 2,
+        "planned_sessions_completed": 2,
+        "extra_sessions": 0,
+        "adherence_this_week": 1
+      },
+      "decision": {
+        "type": "scale_back",
+        "reason": "Fatigue score is high (≥7/10)",
+        "coaching_message": "Your body is asking for recovery. Let's scale back and rebuild.",
+        "coach_tone": "gentle"
+      },
+      "program_change": {
+        "occurred": false
+      },
+      "safety_notes": [
+        "Fatigue 8.0/10 - recovery priority"
+      ],
+      "next_week_program": {
+        "sessions_per_week": 2,
+        "intensity_tier": "light",
+        "session_duration_minutes": 20,
+        "volume_multiplier": 1
+      }
+    },
+    {
+      "week_number": 3,
+      "week_start_iso": "2026-01-15",
+      "phase": "recovering",
+      "phase_week": 2,
+      "state": {
+        "fatigue_score": 4.5,
+        "energy_context": "normal",
+        "adherence_rate_2week": 1,
+        "days_since_last_session": 0,
+        "pain_flags": [],
+        "has_active_injury": false
+      },
+      "program": {
+        "sessions_per_week": 2,
+        "intensity_tier": "light",
+        "session_duration_minutes": 20,
+        "volume_multiplier": 1
+      },
+      "sessions": [
+        {
+          "id": "2026-01-15-A",
+          "date": "2026-01-15T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 2,
+          "session_number": 1,
+          "session_type": "A",
+          "target_duration_minutes": 20,
+          "intensity_tier": "light",
+          "is_minimum_viable": false,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Bodyweight Squat",
+              "category": "strength",
+              "sets": 2,
+              "reps": "8-10",
+              "rest_seconds": 60
+            },
+            {
+              "name": "Glute Bridge",
+              "category": "strength",
+              "sets": 2,
+              "reps": "10-12",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Plank Hold",
+              "category": "strength",
+              "sets": 2,
+              "reps": "15-20 seconds",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Marching in Place",
+              "category": "cardio",
+              "sets": 2,
+              "reps": "2-3 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        },
+        {
+          "id": "2026-01-17-B",
+          "date": "2026-01-17T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 2,
+          "session_number": 2,
+          "session_type": "B",
+          "target_duration_minutes": 20,
+          "intensity_tier": "light",
+          "is_minimum_viable": false,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Knee Push-up",
+              "category": "strength",
+              "sets": 2,
+              "reps": "6-8",
+              "rest_seconds": 60
+            },
+            {
+              "name": "Wall Push-up",
+              "category": "strength",
+              "sets": 2,
+              "reps": "8-10",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Plank Hold",
+              "category": "strength",
+              "sets": 2,
+              "reps": "15-20 seconds",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Step-ups (low)",
+              "category": "cardio",
+              "sets": 2,
+              "reps": "2 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        }
+      ],
+      "minimum_viable_sessions": [
+        {
+          "id": "2026-01-15-A",
+          "date": "2026-01-15T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 2,
+          "session_number": 1,
+          "session_type": "A",
+          "target_duration_minutes": 12,
+          "intensity_tier": "light",
+          "is_minimum_viable": true,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Bodyweight Squat",
+              "category": "strength",
+              "sets": 1,
+              "reps": "8-10",
+              "rest_seconds": 60,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Glute Bridge",
+              "category": "strength",
+              "sets": 1,
+              "reps": "10-12",
+              "rest_seconds": 45,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Marching in Place",
+              "category": "cardio",
+              "sets": 1,
+              "reps": "2-3 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        },
+        {
+          "id": "2026-01-17-B",
+          "date": "2026-01-17T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 2,
+          "session_number": 2,
+          "session_type": "B",
+          "target_duration_minutes": 12,
+          "intensity_tier": "light",
+          "is_minimum_viable": true,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Knee Push-up",
+              "category": "strength",
+              "sets": 1,
+              "reps": "6-8",
+              "rest_seconds": 60,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Wall Push-up",
+              "category": "strength",
+              "sets": 1,
+              "reps": "8-10",
+              "rest_seconds": 45,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Step-ups (low)",
+              "category": "cardio",
+              "sets": 1,
+              "reps": "2 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        }
+      ],
+      "completion": {
+        "raw_sessions_completed": 2,
+        "planned_sessions_completed": 2,
+        "extra_sessions": 0,
+        "adherence_this_week": 1
+      },
+      "decision": {
+        "type": "maintain",
+        "reason": "Stabilizing after scale-back (0/2 weeks)",
+        "coaching_message": "Building back up steadily. No rush.",
+        "coach_tone": "steady"
+      },
+      "program_change": {
+        "occurred": false
+      },
+      "safety_notes": [],
+      "next_week_program": {
+        "sessions_per_week": 2,
+        "intensity_tier": "light",
+        "session_duration_minutes": 20,
+        "volume_multiplier": 1
+      }
+    },
+    {
+      "week_number": 4,
+      "week_start_iso": "2026-01-22",
+      "phase": "maintaining",
+      "phase_week": 1,
+      "state": {
+        "fatigue_score": 2.5,
+        "energy_context": "normal",
+        "adherence_rate_2week": 1,
+        "days_since_last_session": 0,
+        "pain_flags": [],
+        "has_active_injury": false
+      },
+      "program": {
+        "sessions_per_week": 2,
+        "intensity_tier": "light",
+        "session_duration_minutes": 20,
+        "volume_multiplier": 1
+      },
+      "sessions": [
+        {
+          "id": "2026-01-22-A",
+          "date": "2026-01-22T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 1,
+          "session_number": 1,
+          "session_type": "A",
+          "target_duration_minutes": 20,
+          "intensity_tier": "light",
+          "is_minimum_viable": false,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Bodyweight Squat",
+              "category": "strength",
+              "sets": 2,
+              "reps": "8-10",
+              "rest_seconds": 60
+            },
+            {
+              "name": "Glute Bridge",
+              "category": "strength",
+              "sets": 2,
+              "reps": "10-12",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Plank Hold",
+              "category": "strength",
+              "sets": 2,
+              "reps": "15-20 seconds",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Marching in Place",
+              "category": "cardio",
+              "sets": 2,
+              "reps": "2-3 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        },
+        {
+          "id": "2026-01-24-B",
+          "date": "2026-01-24T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 1,
+          "session_number": 2,
+          "session_type": "B",
+          "target_duration_minutes": 20,
+          "intensity_tier": "light",
+          "is_minimum_viable": false,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Knee Push-up",
+              "category": "strength",
+              "sets": 2,
+              "reps": "6-8",
+              "rest_seconds": 60
+            },
+            {
+              "name": "Wall Push-up",
+              "category": "strength",
+              "sets": 2,
+              "reps": "8-10",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Plank Hold",
+              "category": "strength",
+              "sets": 2,
+              "reps": "15-20 seconds",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Step-ups (low)",
+              "category": "cardio",
+              "sets": 2,
+              "reps": "2 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        }
+      ],
+      "minimum_viable_sessions": [
+        {
+          "id": "2026-01-22-A",
+          "date": "2026-01-22T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 1,
+          "session_number": 1,
+          "session_type": "A",
+          "target_duration_minutes": 12,
+          "intensity_tier": "light",
+          "is_minimum_viable": true,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Bodyweight Squat",
+              "category": "strength",
+              "sets": 1,
+              "reps": "8-10",
+              "rest_seconds": 60,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Glute Bridge",
+              "category": "strength",
+              "sets": 1,
+              "reps": "10-12",
+              "rest_seconds": 45,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Marching in Place",
+              "category": "cardio",
+              "sets": 1,
+              "reps": "2-3 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        },
+        {
+          "id": "2026-01-24-B",
+          "date": "2026-01-24T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 1,
+          "session_number": 2,
+          "session_type": "B",
+          "target_duration_minutes": 12,
+          "intensity_tier": "light",
+          "is_minimum_viable": true,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Knee Push-up",
+              "category": "strength",
+              "sets": 1,
+              "reps": "6-8",
+              "rest_seconds": 60,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Wall Push-up",
+              "category": "strength",
+              "sets": 1,
+              "reps": "8-10",
+              "rest_seconds": 45,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Step-ups (low)",
+              "category": "cardio",
+              "sets": 1,
+              "reps": "2 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        }
+      ],
+      "completion": {
+        "raw_sessions_completed": 2,
+        "planned_sessions_completed": 2,
+        "extra_sessions": 0,
+        "adherence_this_week": 1
+      },
+      "decision": {
+        "type": "maintain",
+        "reason": "Stabilizing after scale-back (1/2 weeks)",
+        "coaching_message": "Building back up steadily. No rush.",
+        "coach_tone": "steady"
+      },
+      "program_change": {
+        "occurred": false
+      },
+      "safety_notes": [],
+      "next_week_program": {
+        "sessions_per_week": 2,
+        "intensity_tier": "light",
+        "session_duration_minutes": 20,
+        "volume_multiplier": 1
+      }
+    },
+    {
+      "week_number": 5,
+      "week_start_iso": "2026-01-29",
+      "phase": "maintaining",
+      "phase_week": 2,
+      "state": {
+        "fatigue_score": 1.5,
+        "energy_context": "normal",
+        "adherence_rate_2week": 1,
+        "days_since_last_session": 0,
+        "pain_flags": [],
+        "has_active_injury": false
+      },
+      "program": {
+        "sessions_per_week": 2,
+        "intensity_tier": "light",
+        "session_duration_minutes": 20,
+        "volume_multiplier": 1
+      },
+      "sessions": [
+        {
+          "id": "2026-01-29-A",
+          "date": "2026-01-29T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 2,
+          "session_number": 1,
+          "session_type": "A",
+          "target_duration_minutes": 20,
+          "intensity_tier": "light",
+          "is_minimum_viable": false,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Bodyweight Squat",
+              "category": "strength",
+              "sets": 2,
+              "reps": "8-10",
+              "rest_seconds": 60
+            },
+            {
+              "name": "Glute Bridge",
+              "category": "strength",
+              "sets": 2,
+              "reps": "10-12",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Plank Hold",
+              "category": "strength",
+              "sets": 2,
+              "reps": "15-20 seconds",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Marching in Place",
+              "category": "cardio",
+              "sets": 2,
+              "reps": "2-3 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        },
+        {
+          "id": "2026-01-31-B",
+          "date": "2026-01-31T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 2,
+          "session_number": 2,
+          "session_type": "B",
+          "target_duration_minutes": 20,
+          "intensity_tier": "light",
+          "is_minimum_viable": false,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Knee Push-up",
+              "category": "strength",
+              "sets": 2,
+              "reps": "6-8",
+              "rest_seconds": 60
+            },
+            {
+              "name": "Wall Push-up",
+              "category": "strength",
+              "sets": 2,
+              "reps": "8-10",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Plank Hold",
+              "category": "strength",
+              "sets": 2,
+              "reps": "15-20 seconds",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Step-ups (low)",
+              "category": "cardio",
+              "sets": 2,
+              "reps": "2 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        }
+      ],
+      "minimum_viable_sessions": [
+        {
+          "id": "2026-01-29-A",
+          "date": "2026-01-29T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 2,
+          "session_number": 1,
+          "session_type": "A",
+          "target_duration_minutes": 12,
+          "intensity_tier": "light",
+          "is_minimum_viable": true,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Bodyweight Squat",
+              "category": "strength",
+              "sets": 1,
+              "reps": "8-10",
+              "rest_seconds": 60,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Glute Bridge",
+              "category": "strength",
+              "sets": 1,
+              "reps": "10-12",
+              "rest_seconds": 45,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Marching in Place",
+              "category": "cardio",
+              "sets": 1,
+              "reps": "2-3 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        },
+        {
+          "id": "2026-01-31-B",
+          "date": "2026-01-31T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 2,
+          "session_number": 2,
+          "session_type": "B",
+          "target_duration_minutes": 12,
+          "intensity_tier": "light",
+          "is_minimum_viable": true,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Knee Push-up",
+              "category": "strength",
+              "sets": 1,
+              "reps": "6-8",
+              "rest_seconds": 60,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Wall Push-up",
+              "category": "strength",
+              "sets": 1,
+              "reps": "8-10",
+              "rest_seconds": 45,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Step-ups (low)",
+              "category": "cardio",
+              "sets": 1,
+              "reps": "2 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        }
+      ],
+      "completion": {
+        "raw_sessions_completed": 3,
+        "planned_sessions_completed": 2,
+        "extra_sessions": 1,
+        "adherence_this_week": 1
+      },
+      "decision": {
+        "type": "maintain",
+        "reason": "No progression available (blocked by constraints or phase limits)",
+        "coaching_message": "Holding steady due to current constraints.",
+        "coach_tone": "celebratory"
+      },
+      "program_change": {
+        "occurred": false
+      },
+      "safety_notes": [],
+      "next_week_program": {
+        "sessions_per_week": 2,
+        "intensity_tier": "light",
+        "session_duration_minutes": 20,
+        "volume_multiplier": 1
+      }
+    },
+    {
+      "week_number": 6,
+      "week_start_iso": "2026-02-05",
+      "phase": "maintaining",
+      "phase_week": 3,
+      "state": {
+        "fatigue_score": 0.5,
+        "energy_context": "normal",
+        "adherence_rate_2week": 1,
+        "days_since_last_session": 0,
+        "pain_flags": [],
+        "has_active_injury": false
+      },
+      "program": {
+        "sessions_per_week": 2,
+        "intensity_tier": "light",
+        "session_duration_minutes": 20,
+        "volume_multiplier": 1
+      },
+      "sessions": [
+        {
+          "id": "2026-02-05-A",
+          "date": "2026-02-05T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 3,
+          "session_number": 1,
+          "session_type": "A",
+          "target_duration_minutes": 20,
+          "intensity_tier": "light",
+          "is_minimum_viable": false,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Bodyweight Squat",
+              "category": "strength",
+              "sets": 2,
+              "reps": "8-10",
+              "rest_seconds": 60
+            },
+            {
+              "name": "Glute Bridge",
+              "category": "strength",
+              "sets": 2,
+              "reps": "10-12",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Plank Hold",
+              "category": "strength",
+              "sets": 2,
+              "reps": "15-20 seconds",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Marching in Place",
+              "category": "cardio",
+              "sets": 2,
+              "reps": "2-3 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        },
+        {
+          "id": "2026-02-07-B",
+          "date": "2026-02-07T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 3,
+          "session_number": 2,
+          "session_type": "B",
+          "target_duration_minutes": 20,
+          "intensity_tier": "light",
+          "is_minimum_viable": false,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Knee Push-up",
+              "category": "strength",
+              "sets": 2,
+              "reps": "6-8",
+              "rest_seconds": 60
+            },
+            {
+              "name": "Wall Push-up",
+              "category": "strength",
+              "sets": 2,
+              "reps": "8-10",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Plank Hold",
+              "category": "strength",
+              "sets": 2,
+              "reps": "15-20 seconds",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Step-ups (low)",
+              "category": "cardio",
+              "sets": 2,
+              "reps": "2 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        }
+      ],
+      "minimum_viable_sessions": [
+        {
+          "id": "2026-02-05-A",
+          "date": "2026-02-05T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 3,
+          "session_number": 1,
+          "session_type": "A",
+          "target_duration_minutes": 12,
+          "intensity_tier": "light",
+          "is_minimum_viable": true,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Bodyweight Squat",
+              "category": "strength",
+              "sets": 1,
+              "reps": "8-10",
+              "rest_seconds": 60,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Glute Bridge",
+              "category": "strength",
+              "sets": 1,
+              "reps": "10-12",
+              "rest_seconds": 45,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Marching in Place",
+              "category": "cardio",
+              "sets": 1,
+              "reps": "2-3 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        },
+        {
+          "id": "2026-02-07-B",
+          "date": "2026-02-07T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 3,
+          "session_number": 2,
+          "session_type": "B",
+          "target_duration_minutes": 12,
+          "intensity_tier": "light",
+          "is_minimum_viable": true,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Knee Push-up",
+              "category": "strength",
+              "sets": 1,
+              "reps": "6-8",
+              "rest_seconds": 60,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Wall Push-up",
+              "category": "strength",
+              "sets": 1,
+              "reps": "8-10",
+              "rest_seconds": 45,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Step-ups (low)",
+              "category": "cardio",
+              "sets": 1,
+              "reps": "2 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        }
+      ],
+      "completion": {
+        "raw_sessions_completed": 3,
+        "planned_sessions_completed": 2,
+        "extra_sessions": 1,
+        "adherence_this_week": 1
+      },
+      "decision": {
+        "type": "maintain",
+        "reason": "No progression available (blocked by constraints or phase limits)",
+        "coaching_message": "Holding steady due to current constraints.",
+        "coach_tone": "celebratory"
+      },
+      "program_change": {
+        "occurred": false
+      },
+      "safety_notes": [],
+      "next_week_program": {
+        "sessions_per_week": 2,
+        "intensity_tier": "light",
+        "session_duration_minutes": 20,
+        "volume_multiplier": 1
+      }
+    },
+    {
+      "week_number": 7,
+      "week_start_iso": "2026-02-12",
+      "phase": "maintaining",
+      "phase_week": 4,
+      "state": {
+        "fatigue_score": 0.5,
+        "energy_context": "normal",
+        "adherence_rate_2week": 1,
+        "days_since_last_session": 0,
+        "pain_flags": [],
+        "has_active_injury": false
+      },
+      "program": {
+        "sessions_per_week": 2,
+        "intensity_tier": "light",
+        "session_duration_minutes": 20,
+        "volume_multiplier": 1
+      },
+      "sessions": [
+        {
+          "id": "2026-02-12-A",
+          "date": "2026-02-12T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 4,
+          "session_number": 1,
+          "session_type": "A",
+          "target_duration_minutes": 20,
+          "intensity_tier": "light",
+          "is_minimum_viable": false,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Bodyweight Squat",
+              "category": "strength",
+              "sets": 2,
+              "reps": "8-10",
+              "rest_seconds": 60
+            },
+            {
+              "name": "Glute Bridge",
+              "category": "strength",
+              "sets": 2,
+              "reps": "10-12",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Plank Hold",
+              "category": "strength",
+              "sets": 2,
+              "reps": "15-20 seconds",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Marching in Place",
+              "category": "cardio",
+              "sets": 2,
+              "reps": "2-3 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        },
+        {
+          "id": "2026-02-14-B",
+          "date": "2026-02-14T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 4,
+          "session_number": 2,
+          "session_type": "B",
+          "target_duration_minutes": 20,
+          "intensity_tier": "light",
+          "is_minimum_viable": false,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Knee Push-up",
+              "category": "strength",
+              "sets": 2,
+              "reps": "6-8",
+              "rest_seconds": 60
+            },
+            {
+              "name": "Wall Push-up",
+              "category": "strength",
+              "sets": 2,
+              "reps": "8-10",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Plank Hold",
+              "category": "strength",
+              "sets": 2,
+              "reps": "15-20 seconds",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Step-ups (low)",
+              "category": "cardio",
+              "sets": 2,
+              "reps": "2 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        }
+      ],
+      "minimum_viable_sessions": [
+        {
+          "id": "2026-02-12-A",
+          "date": "2026-02-12T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 4,
+          "session_number": 1,
+          "session_type": "A",
+          "target_duration_minutes": 12,
+          "intensity_tier": "light",
+          "is_minimum_viable": true,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Bodyweight Squat",
+              "category": "strength",
+              "sets": 1,
+              "reps": "8-10",
+              "rest_seconds": 60,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Glute Bridge",
+              "category": "strength",
+              "sets": 1,
+              "reps": "10-12",
+              "rest_seconds": 45,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Marching in Place",
+              "category": "cardio",
+              "sets": 1,
+              "reps": "2-3 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        },
+        {
+          "id": "2026-02-14-B",
+          "date": "2026-02-14T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 4,
+          "session_number": 2,
+          "session_type": "B",
+          "target_duration_minutes": 12,
+          "intensity_tier": "light",
+          "is_minimum_viable": true,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Knee Push-up",
+              "category": "strength",
+              "sets": 1,
+              "reps": "6-8",
+              "rest_seconds": 60,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Wall Push-up",
+              "category": "strength",
+              "sets": 1,
+              "reps": "8-10",
+              "rest_seconds": 45,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Step-ups (low)",
+              "category": "cardio",
+              "sets": 1,
+              "reps": "2 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        }
+      ],
+      "completion": {
+        "raw_sessions_completed": 3,
+        "planned_sessions_completed": 2,
+        "extra_sessions": 1,
+        "adherence_this_week": 1
+      },
+      "decision": {
+        "type": "maintain",
+        "reason": "No progression available (blocked by constraints or phase limits)",
+        "coaching_message": "Holding steady due to current constraints.",
+        "coach_tone": "celebratory"
+      },
+      "program_change": {
+        "occurred": false
+      },
+      "safety_notes": [],
+      "next_week_program": {
+        "sessions_per_week": 2,
+        "intensity_tier": "light",
+        "session_duration_minutes": 20,
+        "volume_multiplier": 1
+      }
+    },
+    {
+      "week_number": 8,
+      "week_start_iso": "2026-02-19",
+      "phase": "building",
+      "phase_week": 1,
+      "state": {
+        "fatigue_score": 1,
+        "energy_context": "normal",
+        "adherence_rate_2week": 1,
+        "days_since_last_session": 0,
+        "pain_flags": [],
+        "has_active_injury": false
+      },
+      "program": {
+        "sessions_per_week": 2,
+        "intensity_tier": "light",
+        "session_duration_minutes": 20,
+        "volume_multiplier": 1
+      },
+      "sessions": [
+        {
+          "id": "2026-02-19-A",
+          "date": "2026-02-19T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 1,
+          "session_number": 1,
+          "session_type": "A",
+          "target_duration_minutes": 20,
+          "intensity_tier": "light",
+          "is_minimum_viable": false,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Bodyweight Squat",
+              "category": "strength",
+              "sets": 2,
+              "reps": "8-10",
+              "rest_seconds": 60
+            },
+            {
+              "name": "Glute Bridge",
+              "category": "strength",
+              "sets": 2,
+              "reps": "10-12",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Plank Hold",
+              "category": "strength",
+              "sets": 2,
+              "reps": "15-20 seconds",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Marching in Place",
+              "category": "cardio",
+              "sets": 2,
+              "reps": "2-3 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        },
+        {
+          "id": "2026-02-21-B",
+          "date": "2026-02-21T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 1,
+          "session_number": 2,
+          "session_type": "B",
+          "target_duration_minutes": 20,
+          "intensity_tier": "light",
+          "is_minimum_viable": false,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Knee Push-up",
+              "category": "strength",
+              "sets": 2,
+              "reps": "6-8",
+              "rest_seconds": 60
+            },
+            {
+              "name": "Wall Push-up",
+              "category": "strength",
+              "sets": 2,
+              "reps": "8-10",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Plank Hold",
+              "category": "strength",
+              "sets": 2,
+              "reps": "15-20 seconds",
+              "rest_seconds": 45
+            },
+            {
+              "name": "Step-ups (low)",
+              "category": "cardio",
+              "sets": 2,
+              "reps": "2 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        }
+      ],
+      "minimum_viable_sessions": [
+        {
+          "id": "2026-02-19-A",
+          "date": "2026-02-19T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 1,
+          "session_number": 1,
+          "session_type": "A",
+          "target_duration_minutes": 12,
+          "intensity_tier": "light",
+          "is_minimum_viable": true,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Bodyweight Squat",
+              "category": "strength",
+              "sets": 1,
+              "reps": "8-10",
+              "rest_seconds": 60,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Glute Bridge",
+              "category": "strength",
+              "sets": 1,
+              "reps": "10-12",
+              "rest_seconds": 45,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Marching in Place",
+              "category": "cardio",
+              "sets": 1,
+              "reps": "2-3 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        },
+        {
+          "id": "2026-02-21-B",
+          "date": "2026-02-21T00:00:00.000Z",
+          "completed": false,
+          "framework": "hybrid_strength_conditioning",
+          "week_number": 1,
+          "session_number": 2,
+          "session_type": "B",
+          "target_duration_minutes": 12,
+          "intensity_tier": "light",
+          "is_minimum_viable": true,
+          "exercises": [
+            {
+              "name": "Cat-Cow Stretch",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 reps",
+              "notes": "Gentle spinal mobility"
+            },
+            {
+              "name": "Arm Circles",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 forward, 10 back"
+            },
+            {
+              "name": "Leg Swings",
+              "category": "mobility",
+              "sets": 1,
+              "reps": "10 each leg"
+            },
+            {
+              "name": "Knee Push-up",
+              "category": "strength",
+              "sets": 1,
+              "reps": "6-8",
+              "rest_seconds": 60,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Wall Push-up",
+              "category": "strength",
+              "sets": 1,
+              "reps": "8-10",
+              "rest_seconds": 45,
+              "notes": "Reduced volume for recovery"
+            },
+            {
+              "name": "Step-ups (low)",
+              "category": "cardio",
+              "sets": 1,
+              "reps": "2 minutes",
+              "rest_seconds": 30
+            }
+          ]
+        }
+      ],
+      "completion": {
+        "raw_sessions_completed": 3,
+        "planned_sessions_completed": 2,
+        "extra_sessions": 1,
+        "adherence_this_week": 1
+      },
+      "decision": {
+        "type": "maintain",
+        "reason": "Less than 2 weeks at current level",
+        "coaching_message": "Let's stay here for another week or two.",
+        "coach_tone": "steady"
+      },
+      "program_change": {
+        "occurred": false
+      },
+      "safety_notes": [],
+      "next_week_program": {
+        "sessions_per_week": 2,
+        "intensity_tier": "light",
+        "session_duration_minutes": 20,
+        "volume_multiplier": 1
+      }
+    }
+  ],
+  "final_state": {
+    "phase": "building",
+    "phase_week": 2,
+    "total_sessions_raw": 19,
+    "total_sessions_planned": 15,
+    "current_program": {
+      "sessions_per_week": 2,
+      "intensity_tier": "light",
+      "session_duration_minutes": 20,
+      "volume_multiplier": 1
+    },
+    "weeks_since_scale_back": 6,
+    "consecutive_stable_weeks": 6,
+    "consecutive_pain_free_weeks": 8
+  },
+  "simulation_metadata": {
+    "total_weeks": 8,
+    "decisions_breakdown": {
+      "progress": 0,
+      "maintain": 6,
+      "scale_back": 2
+    },
+    "phase_transitions": [
+      {
+        "week": 1,
+        "from_phase": "onboarding",
+        "to_phase": "recovering"
+      },
+      {
+        "week": 3,
+        "from_phase": "recovering",
+        "to_phase": "maintaining"
+      },
+      {
+        "week": 7,
+        "from_phase": "maintaining",
+        "to_phase": "building"
+      }
+    ]
+  }
+}

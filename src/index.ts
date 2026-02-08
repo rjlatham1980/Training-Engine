@@ -6,7 +6,7 @@ export * from "./phase";
 export * from "./fatigue";
 export * from "./energy";
 export * from "./invariants";
+export * from "./program_mutation";
 
 // services (optional to export)
-export * from "./services/mock_engine";
 export * from "./services/session_generator";

@@ -51,6 +51,7 @@ export type PerceivedEffort = "too_easy" | "about_right" | "tough" | "too_hard";
 // ============================================================================
 
 export const PROGRESSION_RULES = {
+  ONBOARDING_WEEKS: 3,
   // Volume progression
   VOLUME_START: 1.0,
   VOLUME_INCREMENT: 0.1,  // +10% per progression
@@ -99,12 +100,17 @@ export interface Session {
 }
 
 export interface Exercise {
+  id?: string;
   name: string;
   category: "strength" | "cardio" | "mobility";
   sets: number;
   reps: number | string;  // e.g., "8-10" or "30 seconds"
   rest_seconds?: number;
   notes?: string;
+  slot_id?: string;
+  slot_tag?: string;
+  movement_pattern?: string;
+  equipment?: string[];
 }
 
 // ============================================================================

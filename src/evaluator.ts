@@ -84,11 +84,11 @@ export function evaluateTrainingDecision(
   // MAINTAIN CHECKS (Stability zone)
   // ========================================================================
   
-  // Check 5: Still in onboarding (first 3 weeks, 1-based)
-  if (state.current_phase === "onboarding" && state.week_number <= 3) {
+  // Check 5: Still in onboarding (fixed length, 1-based)
+  if (state.current_phase === "onboarding") {
     return {
       decision: "maintain",
-      reason: `Onboarding phase (week ${state.week_number}/3)`,
+      reason: `Onboarding phase (week ${state.week_number}/${PROGRESSION_RULES.ONBOARDING_WEEKS})`,
       user_message: "Building the habit first. Keep showing up.",
       coach_tone: "encouraging",
     };
@@ -127,8 +127,7 @@ export function evaluateTrainingDecision(
   // Check 8: Moderate adherence (40-75%)
   if (
     adherence_for_rules >= 0.4 && 
-    adherence_for_rules < 0.75 &&
-    state.current_phase !== "onboarding"
+    adherence_for_rules < 0.75
   ) {
     return {
       decision: "maintain",
@@ -193,7 +192,6 @@ export function evaluateTrainingDecision(
     adherence_for_rules >= 0.75 &&
     state.accumulated_fatigue_score < 5 &&
     ["normal", "high"].includes(state.energy_context) &&
-    state.current_phase !== "onboarding" &&
     state.week_number >= 2 &&
     state.consecutive_stable_weeks >= 2 &&
     state.recent_pain_flags.length === 0 &&

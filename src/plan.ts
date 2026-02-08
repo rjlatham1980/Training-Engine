@@ -1,5 +1,6 @@
 import { TrainingState, TrainingDecision, TrainingPhase, ProgramConfig, Session, Exercise } from "./models";
 import { evaluateTrainingDecision } from "./evaluator";
+import { buildStrengthPool, buildCardioPool } from "./services/session_generator";
 
 export interface WeeklyPlan {
   week_start_iso: string;
@@ -20,13 +21,33 @@ export interface WeeklyPlan {
   program_change_description?: string; // Added for transparency
 }
 
+export type StrengthTemplateId =
+  | "full_body"
+  | "upper"
+  | "lower"
+  | "strength_conditioning";
+
+type StrengthTag = "lower" | "hinge" | "push" | "pull" | "arms" | "core" | "unilateral";
+export type SessionStyle =
+  | "strength_focus"
+  | "cardio_focus"
+  | "balanced"
+  | "recovery_mobility";
+
 /**
  * Generate a complete weekly plan - single source of truth for UI
  * Uses state.program as-is (mutations happen AFTER this via applyDecisionToProgram)
  */
 export function generateWeeklyPlan(
   state: TrainingState,
-  weekStart: Date
+  weekStart: Date,
+  options?: {
+    strength_template?: StrengthTemplateId;
+    session_style?: SessionStyle;
+    recent_exercise_ids?: string[];
+    equipment_filter?: string[];
+    log_selection_fallbacks?: boolean;
+  }
 ): WeeklyPlan {
   
   // Evaluate training decision (does NOT mutate program)
@@ -52,8 +73,26 @@ export function generateWeeklyPlan(
   }
   
   // Generate sessions based on CURRENT program (before mutation)
-  const sessions = generateSessions(state, weekStart, false);
-  const minimum_viable_sessions = generateSessions(state, weekStart, true);
+  const sessions = generateSessions(
+    state,
+    weekStart,
+    false,
+    options?.strength_template,
+    options?.session_style,
+    options?.recent_exercise_ids ?? [],
+    options?.equipment_filter ?? [],
+    options?.log_selection_fallbacks ?? false
+  );
+  const minimum_viable_sessions = generateSessions(
+    state,
+    weekStart,
+    true,
+    options?.strength_template,
+    options?.session_style,
+    options?.recent_exercise_ids ?? [],
+    options?.equipment_filter ?? [],
+    options?.log_selection_fallbacks ?? false
+  );
   
   // Validate counts match program
   if (sessions.length !== state.program.sessions_per_week) {
@@ -89,7 +128,12 @@ export function generateWeeklyPlan(
 function generateSessions(
   state: TrainingState,
   weekStart: Date,
-  isMinimumViable: boolean
+  isMinimumViable: boolean,
+  strengthTemplate?: StrengthTemplateId,
+  sessionStyle?: SessionStyle,
+  recentExerciseIds?: string[],
+  equipmentFilter?: string[],
+  logSelectionFallbacks?: boolean
 ): Session[] {
   
   const sessions: Session[] = [];
@@ -123,7 +167,15 @@ function generateSessions(
       exercises: generateExercisesForSession(
         session_type,
         state.program,
-        isMinimumViable
+        isMinimumViable,
+        strengthTemplate,
+        sessionStyle,
+        {
+          recentExerciseIds: recentExerciseIds ?? [],
+          equipmentFilter: equipmentFilter ?? [],
+          seedBase: `${state.local_user_id}:${state.week_number}:${session_type}:${isMinimumViable ? "mv" : "full"}`,
+          logSelectionFallbacks: logSelectionFallbacks ?? false,
+        }
       ),
     });
   }
@@ -131,10 +183,18 @@ function generateSessions(
   return sessions;
 }
 
-function generateExercisesForSession(
+export function generateExercisesForSession(
   session_type: "A" | "B" | "C",
   program: ProgramConfig,
-  isMinimumViable: boolean
+  isMinimumViable: boolean,
+  strengthTemplate: StrengthTemplateId = "full_body",
+  sessionStyle: SessionStyle = "balanced",
+  options?: {
+    recentExerciseIds?: string[];
+    equipmentFilter?: string[];
+    seedBase?: string;
+    logSelectionFallbacks?: boolean;
+  }
 ): Exercise[] {
   
   const intensity = program.intensity_tier;
@@ -165,127 +225,289 @@ function generateExercisesForSession(
   
   const exercises: Exercise[] = [...warmup];
   
-  // Exercise library by intensity
-  const strength_lib = {
-    light: {
-      squat: { name: "Bodyweight Squat", base_sets: 2, reps: "8-10", rest: 60 },
-      push: { name: "Knee Push-up", base_sets: 2, reps: "6-8", rest: 60 },
-      bridge: { name: "Glute Bridge", base_sets: 2, reps: "10-12", rest: 45 },
-      pike: { name: "Wall Push-up", base_sets: 2, reps: "8-10", rest: 45 },
-      lunge: { name: "Assisted Squat", base_sets: 2, reps: "8-10", rest: 60 },
-      core: { name: "Plank Hold", base_sets: 2, reps: "15-20 seconds", rest: 45 },
-    },
-    moderate: {
-      squat: { name: "Bodyweight Squat", base_sets: 3, reps: "10-12", rest: 60 },
-      push: { name: "Push-up", base_sets: 3, reps: "8-10", rest: 60 },
-      bridge: { name: "Single-leg Glute Bridge", base_sets: 3, reps: "8-10 each", rest: 45 },
-      pike: { name: "Pike Push-up", base_sets: 2, reps: "6-8", rest: 60 },
-      lunge: { name: "Reverse Lunge", base_sets: 3, reps: "8-10 each leg", rest: 60 },
-      core: { name: "Plank Hold", base_sets: 2, reps: "30-40 seconds", rest: 45 },
-    },
-    challenging: {
-      squat: { name: "Jump Squat", base_sets: 3, reps: "8-10", rest: 90 },
-      push: { name: "Decline Push-up", base_sets: 3, reps: "10-12", rest: 75 },
-      bridge: { name: "Single-leg Deadlift", base_sets: 3, reps: "8-10 each", rest: 60 },
-      pike: { name: "Diamond Push-up", base_sets: 3, reps: "8-10", rest: 75 },
-      lunge: { name: "Bulgarian Split Squat", base_sets: 3, reps: "8-10 each leg", rest: 75 },
-      core: { name: "Side Plank", base_sets: 2, reps: "30-40 seconds each", rest: 45 },
-    },
-  };
-  
-  const cardio_lib = {
-    light: [
-      { name: "Marching in Place", duration: "2-3 minutes" },
-      { name: "Step-ups (low)", duration: "2 minutes" },
-      { name: "Easy Jumping Jacks", duration: "1 minute" },
-    ],
-    moderate: [
-      { name: "Jumping Jacks", duration: "1 minute" },
-      { name: "High Knees", duration: "30-45 seconds" },
-      { name: "Mountain Climbers", duration: "30-45 seconds" },
-    ],
-    challenging: [
-      { name: "Burpees", duration: "30-45 seconds" },
-      { name: "High Knees (fast)", duration: "45 seconds" },
-      { name: "Jump Lunges", duration: "30-45 seconds" },
-    ],
-  };
-  
-  const strength = strength_lib[intensity];
-  const cardio = cardio_lib[intensity];
-  
-  // Session A: Lower body focus
-  if (session_type === "A") {
-    exercises.push(
-      scaleStrengthExercise(strength.squat, volume_mult),
-      scaleStrengthExercise(strength.bridge, volume_mult)
-    );
-    if (!isMinimumViable) {
-      exercises.push(scaleStrengthExercise(strength.core, volume_mult));
+  const strength_pool = buildStrengthPool(intensity);
+  const cardio_pool = buildCardioPool(intensity);
+  const recentIds = new Set(options?.recentExerciseIds ?? []);
+  const equipmentFilter = options?.equipmentFilter ?? [];
+
+  const strengthSelection = buildStrengthTemplateExercises(
+    strength_pool,
+    strengthTemplate,
+    sessionStyle,
+    intensity,
+    volume_mult,
+    isMinimumViable,
+    {
+      recentIds,
+      equipmentFilter,
+      seedBase: options?.seedBase ?? `${session_type}:${intensity}`,
+      sessionSlotPrefix: `${session_type}-${isMinimumViable ? "mv" : "full"}`,
+      logSelectionFallbacks: options?.logSelectionFallbacks ?? false,
     }
+  );
+  exercises.push(...strengthSelection.exercises);
+
+  const cardioIndex = session_type === "A" ? 0 : session_type === "B" ? 1 : 2;
+  const cardioCount = sessionStyle === "cardio_focus" && !isMinimumViable ? 2 : 1;
+  for (let i = 0; i < cardioCount; i++) {
+    const cardio = pickCardioExercise(
+      cardio_pool,
+      recentIds,
+      equipmentFilter,
+      `${options?.seedBase ?? session_type}-cardio-${i}`
+    );
     exercises.push({
-      name: cardio[0].name,
+      id: cardio.id,
+      slot_id: `${session_type}-cardio-${i + 1}`,
+      slot_tag: "cardio",
+      name: cardio.name,
       category: "cardio",
       sets: isMinimumViable ? 1 : 2,
-      reps: cardio[0].duration,
-      rest_seconds: 30,
-    });
-  }
-  
-  // Session B: Upper body focus
-  else if (session_type === "B") {
-    exercises.push(
-      scaleStrengthExercise(strength.push, volume_mult),
-      scaleStrengthExercise(strength.pike, volume_mult)
-    );
-    if (!isMinimumViable) {
-      exercises.push(scaleStrengthExercise(strength.core, volume_mult));
-    }
-    exercises.push({
-      name: cardio[1].name,
-      category: "cardio",
-      sets: isMinimumViable ? 1 : 2,
-      reps: cardio[1].duration,
-      rest_seconds: 30,
-    });
-  }
-  
-  // Session C: Full body
-  else {
-    exercises.push(
-      scaleStrengthExercise(strength.squat, volume_mult),
-      scaleStrengthExercise(strength.push, volume_mult)
-    );
-    if (!isMinimumViable) {
-      exercises.push(scaleStrengthExercise(strength.lunge, volume_mult));
-    }
-    exercises.push({
-      name: cardio[2].name,
-      category: "cardio",
-      sets: isMinimumViable ? 1 : 2,
-      reps: cardio[2].duration,
-      rest_seconds: 30,
+      reps: cardio.reps,
+      rest_seconds: cardio.rest_seconds,
+      movement_pattern: cardio.movement_pattern,
+      equipment: cardio.equipment,
     });
   }
   
   return exercises;
 }
 
+function buildStrengthTemplateExercises(
+  strength_pool: Exercise[],
+  template: StrengthTemplateId,
+  sessionStyle: SessionStyle,
+  intensity: ProgramConfig["intensity_tier"],
+  volume_mult: number,
+  isMinimumViable: boolean,
+  options: {
+    recentIds: Set<string>;
+    equipmentFilter: string[];
+    seedBase: string;
+    sessionSlotPrefix: string;
+    logSelectionFallbacks: boolean;
+  }
+): { exercises: Exercise[]; fallbackCount: number } {
+  const tags = getTemplateSlots(template, sessionStyle, intensity, isMinimumViable);
+  const used = new Set<string>();
+  const exercises: Exercise[] = [];
+  let fallbackCount = 0;
+
+  for (let index = 0; index < tags.length; index++) {
+    const tag = tags[index];
+    const seed = `${options.seedBase}:${options.sessionSlotPrefix}:${index + 1}:${tag}`;
+    const selection = selectStrengthExercise(
+      strength_pool,
+      tag,
+      used,
+      options.recentIds,
+      options.equipmentFilter,
+      seed
+    );
+    if (selection.exercise) {
+      const exercise = scaleStrengthExercise(selection.exercise, volume_mult);
+      exercises.push({
+        ...exercise,
+        slot_id: `${options.sessionSlotPrefix}-slot-${index + 1}`,
+        slot_tag: tag,
+        id: selection.exercise.id,
+        movement_pattern: selection.exercise.movement_pattern,
+        equipment: selection.exercise.equipment,
+      });
+      used.add(selection.exercise.id ?? selection.exercise.name);
+    }
+    if (selection.selection_fallback) {
+      fallbackCount += 1;
+    }
+  }
+
+  if (fallbackCount > 0 && options.logSelectionFallbacks) {
+    console.warn("Selection fallback used", {
+      seedBase: options.seedBase,
+      session: options.sessionSlotPrefix,
+      fallbackCount,
+    });
+  }
+
+  return { exercises, fallbackCount };
+}
+
+function getTemplateSlots(
+  template: StrengthTemplateId,
+  sessionStyle: SessionStyle,
+  intensity: ProgramConfig["intensity_tier"],
+  isMinimumViable: boolean
+): StrengthTag[] {
+  const addAccessory = !isMinimumViable && intensity !== "light";
+
+  if (sessionStyle === "cardio_focus") {
+    return isMinimumViable ? ["core"] : ["lower", "core"];
+  }
+
+  if (sessionStyle === "recovery_mobility") {
+    return isMinimumViable ? ["core"] : ["core", "lower"];
+  }
+
+  if (template === "upper") {
+    const base: StrengthTag[] = isMinimumViable
+      ? ["push", "pull", "core"]
+      : ["push", "pull", "push", "pull"];
+    if (addAccessory || sessionStyle === "strength_focus") base.push("arms");
+    return base;
+  }
+
+  if (template === "lower") {
+    const base: StrengthTag[] = isMinimumViable
+      ? ["lower", "hinge", "core"]
+      : ["lower", "hinge", "unilateral", "core"];
+    if (addAccessory || sessionStyle === "strength_focus") base.push("lower");
+    return base;
+  }
+
+  if (template === "strength_conditioning") {
+    return isMinimumViable
+      ? ["lower", "core"]
+      : ["lower", "push", "core"];
+  }
+
+  const base: StrengthTag[] = isMinimumViable
+    ? ["lower", "push", "core"]
+    : ["lower", "push", "pull", "core"];
+  if (addAccessory || sessionStyle === "strength_focus") base.push("arms");
+  return base;
+}
+
+function selectStrengthExercise(
+  pool: Exercise[],
+  tag: StrengthTag,
+  used: Set<string>,
+  recentIds: Set<string>,
+  equipmentFilter: string[],
+  seed: string
+): { exercise?: Exercise; selection_fallback: boolean } {
+  const rng = seededRandom(seed);
+  const eligible = pool.filter((exercise) => {
+    const id = exercise.id ?? exercise.name;
+    if (used.has(id)) return false;
+    if (!matchesTag(exercise, tag)) return false;
+    if (equipmentFilter.length > 0 && !exercise.equipment?.some((eq) => equipmentFilter.includes(eq))) {
+      return false;
+    }
+    return !recentIds.has(id);
+  });
+
+  if (eligible.length > 0) {
+    return { exercise: pickFromPool(eligible, rng), selection_fallback: false };
+  }
+
+  const allowRepeats = pool.filter((exercise) => {
+    const id = exercise.id ?? exercise.name;
+    if (used.has(id)) return false;
+    if (!matchesTag(exercise, tag)) return false;
+    if (equipmentFilter.length > 0 && !exercise.equipment?.some((eq) => equipmentFilter.includes(eq))) {
+      return false;
+    }
+    return true;
+  });
+
+  if (allowRepeats.length > 0) {
+    return { exercise: pickFromPool(allowRepeats, rng), selection_fallback: true };
+  }
+
+  const relaxedTag = pool.filter((exercise) => {
+    const id = exercise.id ?? exercise.name;
+    if (used.has(id)) return false;
+    if (equipmentFilter.length > 0 && !exercise.equipment?.some((eq) => equipmentFilter.includes(eq))) {
+      return false;
+    }
+    return !recentIds.has(id);
+  });
+
+  if (relaxedTag.length > 0) {
+    return { exercise: pickFromPool(relaxedTag, rng), selection_fallback: true };
+  }
+
+  const finalPool = pool.filter((exercise) => {
+    const id = exercise.id ?? exercise.name;
+    if (used.has(id)) return false;
+    return true;
+  });
+
+  if (finalPool.length > 0) {
+    return { exercise: pickFromPool(finalPool, rng), selection_fallback: true };
+  }
+
+  return { selection_fallback: true };
+}
+
+function pickCardioExercise(
+  pool: Exercise[],
+  recentIds: Set<string>,
+  equipmentFilter: string[],
+  seed: string
+): Exercise {
+  const rng = seededRandom(seed);
+  const eligible = pool.filter((exercise) => {
+    const id = exercise.id ?? exercise.name;
+    if (equipmentFilter.length > 0 && !exercise.equipment?.some((eq) => equipmentFilter.includes(eq))) {
+      return false;
+    }
+    return !recentIds.has(id);
+  });
+  if (eligible.length > 0) {
+    return pickFromPool(eligible, rng);
+  }
+  return pickFromPool(pool, rng);
+}
+
+function matchesTag(exercise: Exercise, tag: StrengthTag): boolean {
+  const pattern = exercise.movement_pattern ?? "";
+  if (tag === "lower") return pattern === "squat" || pattern === "unilateral";
+  if (tag === "hinge") return pattern === "hinge";
+  if (tag === "push") return pattern === "push";
+  if (tag === "pull") return pattern === "pull";
+  if (tag === "arms") return pattern === "arms";
+  if (tag === "core") return pattern === "core";
+  if (tag === "unilateral") return pattern === "unilateral";
+  return false;
+}
+
+function pickFromPool(pool: Exercise[], rng: () => number): Exercise {
+  const idx = Math.floor(rng() * pool.length);
+  return pool[idx];
+}
+
+function seededRandom(seed: string): () => number {
+  let h = 2166136261;
+  for (let i = 0; i < seed.length; i++) {
+    h ^= seed.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  let state = h >>> 0;
+  return () => {
+    state = (state * 1664525 + 1013904223) >>> 0;
+    return state / 0xffffffff;
+  };
+}
+
 /**
  * Scale a strength exercise by volume multiplier
  */
 function scaleStrengthExercise(
-  base: { name: string; base_sets: number; reps: string; rest: number },
+  base: Exercise,
   volume_mult: number
 ): Exercise {
-  const scaled_sets = Math.max(1, Math.round(base.base_sets * volume_mult));
+  const scaled_sets = Math.max(1, Math.round(base.sets * volume_mult));
   
   return {
+    id: base.id,
     name: base.name,
     category: "strength",
     sets: scaled_sets,
     reps: base.reps,
-    rest_seconds: base.rest,
+    rest_seconds: base.rest_seconds,
     notes: volume_mult < 0.6 ? "Reduced volume for recovery" : undefined,
+    movement_pattern: base.movement_pattern,
+    equipment: base.equipment,
   };
 }

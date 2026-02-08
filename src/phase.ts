@@ -1,4 +1,4 @@
-import { TrainingState, TrainingPhase, TrainingDecision } from "./models";
+import { TrainingState, TrainingPhase, TrainingDecision, PROGRESSION_RULES } from "./models";
 
 /**
  * Determines if phase should transition
@@ -9,11 +9,10 @@ export function evaluatePhaseTransition(
   recent_decision: TrainingDecision
 ): TrainingPhase | null {
   
-  // Onboarding → Building (after 3 weeks, 1-based)
+  // Onboarding → Building (fixed length, 1-based)
   if (
     state.current_phase === "onboarding" &&
-    state.week_number >= 3 &&
-    state.adherence_rate_2week >= 0.6
+    state.week_number >= PROGRESSION_RULES.ONBOARDING_WEEKS
   ) {
     return "building";
   }

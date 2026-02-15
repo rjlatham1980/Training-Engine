@@ -63,7 +63,7 @@ if (has_active_injury || pain_flags.length >= 2) → scale_back
 if (fatigue >= 7) → scale_back
 if (energy === "depleted") → scale_back
 if (adherence < 0.4 for 2+ weeks) → scale_back
-if (10+ days since last session) → scale_back
+if (inactive_weeks_equivalent >= 3) → scale_back
 ```
 
 ### Priority 2: Stability (Maintain)
@@ -77,6 +77,7 @@ if (adherence in 40-75%) → maintain
 if (fatigue in 5-7) → maintain
 if (energy === "low") → maintain
 if (week < 2 in phase) → maintain
+if (inactive_weeks_equivalent >= 1) → maintain
 ```
 
 ### Priority 3: Progression (Progress)

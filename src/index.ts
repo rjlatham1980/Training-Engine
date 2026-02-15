@@ -10,3 +10,5 @@ export * from "./program_mutation";
 
 // services (optional to export)
 export * from "./services/session_generator";
+
+export const ENGINE_VERSION = "0.1.0";

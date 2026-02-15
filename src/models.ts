@@ -54,8 +54,11 @@ export const PROGRESSION_RULES = {
   ONBOARDING_WEEKS: 3,
   // Volume progression
   VOLUME_START: 1.0,
-  VOLUME_INCREMENT: 0.1,  // +10% per progression
-  VOLUME_CAP: 1.3,
+  VOLUME_INCREMENT: 0.1,  // +10% per progression (legacy)
+  VOLUME_LADDER: [1.0, 1.1, 1.2, 1.3, 1.4, 1.5],
+  VOLUME_CAP: 1.5,
+  VOLUME_CAP_LIGHT: 1.2,
+  VOLUME_CAP_MODERATE: 1.3,
   VOLUME_RESET_ON_INTENSITY_CHANGE: true,  // Reset to 1.0 when intensity increases
   
   // Intensity progression (ordered)
@@ -63,9 +66,12 @@ export const PROGRESSION_RULES = {
   
   // Duration (fixed for MVP)
   DURATION_ONBOARDING: 25,
-  DURATION_BUILDING: 25,  // Keep fixed at 25 for MVP
-  DURATION_MAINTAINING: 25,
+  DURATION_BUILDING: 30,
+  DURATION_MAINTAINING: 30,
   DURATION_RECOVERING: 20,
+  DURATION_BASE_LIGHT: 25,
+  DURATION_BASE_MODERATE: 30,
+  DURATION_CHALLENGING_LADDER: [35, 40, 45, 50, 55, 60],
   
   // Session frequency (not auto-increased)
   FREQUENCY_MIN: 2,

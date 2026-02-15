@@ -342,6 +342,14 @@ const MOBILITY_DEFINITIONS: ExerciseDefinition[] = [
   },
 ];
 
+export const ENGINE_EXERCISE_IDS = Array.from(
+  new Set(
+    [...STRENGTH_DEFINITIONS, ...CARDIO_DEFINITIONS, ...MOBILITY_DEFINITIONS].map(
+      (exercise) => exercise.id
+    )
+  )
+);
+
 export const EXERCISE_LIBRARY = {
   strength: {
     light: STRENGTH_DEFINITIONS.filter((ex) => ex.intensity_tiers.includes("light")),

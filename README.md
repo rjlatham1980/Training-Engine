@@ -86,7 +86,7 @@ EVALUATE WEEKLY STATE
 │  ├─ Fatigue ≥7/10? → SCALE BACK
 │  ├─ Energy depleted? → SCALE BACK
 │  ├─ Adherence <40% for 2+ weeks? → SCALE BACK
-│  └─ 10+ days gap? → SCALE BACK
+│  └─ Inactive ≥3 weeks? → SCALE BACK
 │
 ├─ MEDIUM PRIORITY: Stability Gates
 │  ├─ In onboarding (week 1-3)? → MAINTAIN
@@ -96,7 +96,8 @@ EVALUATE WEEKLY STATE
 │  ├─ Adherence 40-75%? → MAINTAIN
 │  ├─ Fatigue 5-7/10? → MAINTAIN
 │  ├─ Energy low? → MAINTAIN
-│  └─ <2 weeks at current level? → MAINTAIN
+│  ├─ <2 weeks at current level? → MAINTAIN
+│  └─ Inactive 1–2 weeks? → MAINTAIN
 │
 └─ LOW PRIORITY: Progression Gates
    ├─ Adherence ≥75%? ✓

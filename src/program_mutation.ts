@@ -65,9 +65,12 @@ export function applyDecisionToProgram(
     
     // Relax constraints when progressing successfully
     if (programDidChange({ previous_program: previous, new_program: state.program, change_description: "", change_cause: "none", is_intensity_reset: false, at_true_ceiling: false })) {
+      const intensity_order: IntensityTier[] = ["light", "moderate", "challenging"];
+      const existing_index = intensity_order.indexOf(state.program_constraints.max_intensity_tier);
+      const current_index = intensity_order.indexOf(state.program.intensity_tier);
       state.program_constraints = {
         max_sessions_per_week: Math.max(state.program_constraints.max_sessions_per_week, state.program.sessions_per_week),
-        max_intensity_tier: state.program.intensity_tier,
+        max_intensity_tier: intensity_order[Math.max(existing_index, current_index)],
         max_duration_minutes: Math.max(state.program_constraints.max_duration_minutes, state.program.session_duration_minutes),
         max_volume_multiplier: Math.max(state.program_constraints.max_volume_multiplier, state.program.volume_multiplier),
       };
@@ -115,83 +118,183 @@ function applyProgression(
   previous: ProgramConfig
 ): ProgramMutationResult {
   
+  const volume_ladder = PROGRESSION_RULES.VOLUME_LADDER.map((value) => value) as number[];
+  const normalizeVolume = (value: number): number => {
+    const rounded = Number(value.toFixed(1));
+    if (volume_ladder.includes(rounded)) return rounded;
+    let closest: number = volume_ladder[0];
+    let minDiff = Math.abs(rounded - closest);
+    for (const v of volume_ladder) {
+      const diff = Math.abs(rounded - v);
+      if (diff < minDiff) {
+        closest = v;
+        minDiff = diff;
+      }
+    }
+    return closest;
+  };
+  const getNextVolume = (current: number, cap: number): number | null => {
+    const normalized = normalizeVolume(current);
+    const startIndex = volume_ladder.indexOf(normalized);
+    if (startIndex === -1) return null;
+    for (let i = startIndex + 1; i < volume_ladder.length; i += 1) {
+      if (volume_ladder[i] <= cap) return volume_ladder[i];
+    }
+    return null;
+  };
+  const getChallengingVolumeCap = (duration: number): number => {
+    if (duration >= 60) return 1.0;
+    if (duration >= 55) return 1.0;
+    if (duration >= 50) return 1.5;
+    if (duration >= 45) return 1.4;
+    if (duration >= 40) return 1.3;
+    return 1.2;
+  };
+  const getChallengingNextDuration = (duration: number): number | null => {
+    const ladder = PROGRESSION_RULES.DURATION_CHALLENGING_LADDER.map((value) => value) as number[];
+    const index = ladder.indexOf(duration);
+    if (index === -1) {
+      const next = ladder.find((value) => value > duration);
+      return next ?? null;
+    }
+    return ladder[index + 1] ?? null;
+  };
+
   const current_duration = previous.session_duration_minutes;
   const current_intensity = previous.intensity_tier;
-  const current_volume = previous.volume_multiplier;
-  
-  // Priority 0: Restore duration from recovery (20min → 25min)
-  if (current_duration < 25 && current_duration < state.program_constraints.max_duration_minutes) {
-    const new_duration = Math.min(25, state.program_constraints.max_duration_minutes);
-    state.program.session_duration_minutes = new_duration;
-    
-    return {
-      previous_program: previous,
-      new_program: { ...state.program },
-      change_description: `Duration increased: ${current_duration}min → ${new_duration}min (recovery progression)`,
-      change_cause: "progression_duration",
-      is_intensity_reset: false,
-      at_true_ceiling: false,
-    };
-  }
-  
-  // Priority 1: Increase volume (safest)
-  if (current_volume < PROGRESSION_RULES.VOLUME_CAP && current_volume < state.program_constraints.max_volume_multiplier) {
-    const new_volume = Math.min(
-      PROGRESSION_RULES.VOLUME_CAP,
-      state.program_constraints.max_volume_multiplier,
-      current_volume + PROGRESSION_RULES.VOLUME_INCREMENT
-    );
-    
-    state.program.volume_multiplier = new_volume;
-    
-    return {
-      previous_program: previous,
-      new_program: { ...state.program },
-      change_description: `Volume increased: ${current_volume.toFixed(1)}x → ${new_volume.toFixed(1)}x`,
-      change_cause: "progression_volume",
-      is_intensity_reset: false,
-      at_true_ceiling: false,
-    };
-  }
-  
-  // Priority 2: Increase intensity (if allowed and at volume cap)
-  const intensity_levels = PROGRESSION_RULES.INTENSITY_PROGRESSION;
-  const current_index = intensity_levels.indexOf(current_intensity);
-  const max_index = intensity_levels.indexOf(state.program_constraints.max_intensity_tier);
-  
-  if (current_index < intensity_levels.length - 1 && current_index < max_index) {
-    const next_intensity = intensity_levels[current_index + 1];
-    
-    state.program.intensity_tier = next_intensity;
-    
-    if (PROGRESSION_RULES.VOLUME_RESET_ON_INTENSITY_CHANGE) {
-      state.program.volume_multiplier = PROGRESSION_RULES.VOLUME_START;
-      
+  const current_volume = normalizeVolume(previous.volume_multiplier);
+
+  if (current_intensity === "light") {
+    const baseDuration = PROGRESSION_RULES.DURATION_BASE_LIGHT;
+    if (current_duration < baseDuration && current_duration < state.program_constraints.max_duration_minutes) {
+      const new_duration = Math.min(baseDuration, state.program_constraints.max_duration_minutes);
+      state.program.session_duration_minutes = new_duration;
       return {
         previous_program: previous,
         new_program: { ...state.program },
-        change_description: `Intensity increased: ${current_intensity} → ${next_intensity}; volume reset to ${PROGRESSION_RULES.VOLUME_START.toFixed(1)}x for safety`,
+        change_description: `Duration increased: ${current_duration}min → ${new_duration}min`,
+        change_cause: "progression_duration",
+        is_intensity_reset: false,
+        at_true_ceiling: false,
+      };
+    }
+
+    const cap = Math.min(PROGRESSION_RULES.VOLUME_CAP_LIGHT, state.program_constraints.max_volume_multiplier);
+    const nextVolume = getNextVolume(current_volume, cap);
+    if (nextVolume) {
+      state.program.volume_multiplier = nextVolume;
+      return {
+        previous_program: previous,
+        new_program: { ...state.program },
+        change_description: `Volume increased: ${current_volume.toFixed(1)}x → ${nextVolume.toFixed(1)}x`,
+        change_cause: "progression_volume",
+        is_intensity_reset: false,
+        at_true_ceiling: false,
+      };
+    }
+
+    const intensity_levels = PROGRESSION_RULES.INTENSITY_PROGRESSION;
+    const current_index = intensity_levels.indexOf(current_intensity);
+    const max_index = intensity_levels.indexOf(state.program_constraints.max_intensity_tier);
+    if (current_index < intensity_levels.length - 1 && current_index < max_index) {
+      const next_intensity = intensity_levels[current_index + 1];
+      state.program.intensity_tier = next_intensity;
+      state.program.session_duration_minutes = PROGRESSION_RULES.DURATION_BASE_MODERATE;
+      state.program.volume_multiplier = PROGRESSION_RULES.VOLUME_START;
+      return {
+        previous_program: previous,
+        new_program: { ...state.program },
+        change_description: `Intensity increased: ${current_intensity} → ${next_intensity}; duration set to ${PROGRESSION_RULES.DURATION_BASE_MODERATE}min; volume reset to ${PROGRESSION_RULES.VOLUME_START.toFixed(1)}x`,
         change_cause: "progression_intensity",
         is_intensity_reset: true,
         at_true_ceiling: false,
       };
-    } else {
+    }
+  }
+
+  if (current_intensity === "moderate") {
+    const baseDuration = PROGRESSION_RULES.DURATION_BASE_MODERATE;
+    if (current_duration < baseDuration && current_duration < state.program_constraints.max_duration_minutes) {
+      const new_duration = Math.min(baseDuration, state.program_constraints.max_duration_minutes);
+      state.program.session_duration_minutes = new_duration;
       return {
         previous_program: previous,
         new_program: { ...state.program },
-        change_description: `Intensity increased: ${current_intensity} → ${next_intensity}`,
+        change_description: `Duration increased: ${current_duration}min → ${new_duration}min`,
+        change_cause: "progression_duration",
+        is_intensity_reset: false,
+        at_true_ceiling: false,
+      };
+    }
+
+    const cap = Math.min(PROGRESSION_RULES.VOLUME_CAP_MODERATE, state.program_constraints.max_volume_multiplier);
+    const nextVolume = getNextVolume(current_volume, cap);
+    if (nextVolume) {
+      state.program.volume_multiplier = nextVolume;
+      return {
+        previous_program: previous,
+        new_program: { ...state.program },
+        change_description: `Volume increased: ${current_volume.toFixed(1)}x → ${nextVolume.toFixed(1)}x`,
+        change_cause: "progression_volume",
+        is_intensity_reset: false,
+        at_true_ceiling: false,
+      };
+    }
+
+    const intensity_levels = PROGRESSION_RULES.INTENSITY_PROGRESSION;
+    const current_index = intensity_levels.indexOf(current_intensity);
+    const max_index = intensity_levels.indexOf(state.program_constraints.max_intensity_tier);
+    if (current_index < intensity_levels.length - 1 && current_index < max_index) {
+      const next_intensity = intensity_levels[current_index + 1];
+      state.program.intensity_tier = next_intensity;
+      state.program.session_duration_minutes = PROGRESSION_RULES.DURATION_CHALLENGING_LADDER[0];
+      state.program.volume_multiplier = PROGRESSION_RULES.VOLUME_START;
+      return {
+        previous_program: previous,
+        new_program: { ...state.program },
+        change_description: `Intensity increased: ${current_intensity} → ${next_intensity}; duration set to ${PROGRESSION_RULES.DURATION_CHALLENGING_LADDER[0]}min; volume reset to ${PROGRESSION_RULES.VOLUME_START.toFixed(1)}x`,
         change_cause: "progression_intensity",
+        is_intensity_reset: true,
+        at_true_ceiling: false,
+      };
+    }
+  }
+
+  if (current_intensity === "challenging") {
+    const duration = current_duration;
+    const cap = Math.min(getChallengingVolumeCap(duration), state.program_constraints.max_volume_multiplier);
+    const nextVolume = getNextVolume(current_volume, cap);
+    if (nextVolume) {
+      state.program.volume_multiplier = nextVolume;
+      return {
+        previous_program: previous,
+        new_program: { ...state.program },
+        change_description: `Volume increased: ${current_volume.toFixed(1)}x → ${nextVolume.toFixed(1)}x`,
+        change_cause: "progression_volume",
+        is_intensity_reset: false,
+        at_true_ceiling: false,
+      };
+    }
+
+    const nextDuration = getChallengingNextDuration(duration);
+    if (nextDuration && nextDuration <= state.program_constraints.max_duration_minutes) {
+      state.program.session_duration_minutes = nextDuration;
+      state.program.volume_multiplier = PROGRESSION_RULES.VOLUME_START;
+      return {
+        previous_program: previous,
+        new_program: { ...state.program },
+        change_description: `Duration increased: ${duration}min → ${nextDuration}min; volume reset to ${PROGRESSION_RULES.VOLUME_START.toFixed(1)}x`,
+        change_cause: "progression_duration",
         is_intensity_reset: false,
         at_true_ceiling: false,
       };
     }
   }
-  
-  // Check if at TRUE ceiling (challenging intensity + max volume + max duration)
-  const at_true_ceiling = 
+
+  const at_true_ceiling =
     current_intensity === "challenging" &&
-    current_volume >= PROGRESSION_RULES.VOLUME_CAP &&
-    current_duration >= 25;
+    current_duration >= 60 &&
+    current_volume <= 1.0;
   
   // At ceiling
   return {
@@ -214,7 +317,7 @@ export function programDidChange(result: ProgramMutationResult): boolean {
     prev.sessions_per_week !== next.sessions_per_week ||
     prev.intensity_tier !== next.intensity_tier ||
     prev.session_duration_minutes !== next.session_duration_minutes ||
-    Math.abs(prev.volume_multiplier - next.volume_multiplier) > 0.01
+    prev.volume_multiplier !== next.volume_multiplier
   );
 }
 
